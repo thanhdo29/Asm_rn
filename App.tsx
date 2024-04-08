@@ -9,22 +9,24 @@ import DetailProductScreen from './screens/DetailProductScreen';
 import BottonTab from './navigation/BottonTab';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-
+import { MyTheme, useTheme } from './components/MyTheme';
 const App = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name='welcom' component={WelcomScreen}/>
-        <Stack.Screen name='login' component={LoginScreen}/>
-        <Stack.Screen name='signup' component={SignupScreen}/>
-        <Stack.Screen name='detail' component={DetailProductScreen}/>
-        <Stack.Screen name='home2' component={BottonTab}/>
-      </Stack.Navigator>
-    </NavigationContainer>
-    </Provider>
+    <MyTheme>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='welcom' component={WelcomScreen} />
+            <Stack.Screen name='login' component={LoginScreen} />
+            <Stack.Screen name='signup' component={SignupScreen} />
+            <Stack.Screen name='detail' component={DetailProductScreen} />
+            <Stack.Screen name='home2' component={BottonTab} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </MyTheme>
   )
 }
 

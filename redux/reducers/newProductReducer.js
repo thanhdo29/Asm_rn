@@ -27,6 +27,7 @@ const newReducer=createReducer(initialState,(builder) => {
                 newPro.companyProduct = companyProduct;
             }
         });
+        
 
     //xóa sản phẩm yêu thích
     builder

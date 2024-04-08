@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const api_url = "http://192.168.53.5:3000/favouriteProducts";
+const api_url = "http://192.168.54.9:3000/favouriteProducts";
 
 export const addFavouriteProduct = createAction('product/addFavourite');
 export const updateFavouriteProduct = createAction('product/updateFavourite');
@@ -16,7 +16,7 @@ export const fetchFavouriteProduct = () => {
             const data = await response.json();
             dispatch(cleanFavouriteProduct());
             data.forEach(item => {
-                dispatch(addFavouriteProduct(item))
+                dispatch(addFavouriteProduct(item));
             });
         } catch (error) {
             console.log(error);

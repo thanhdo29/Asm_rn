@@ -3,18 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { Fontsizes } from '../constants';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux'
-import { addHotProductApi, fetchHotProduct } from '../redux/actions/hotProductAction';
+import { addHotProductApi, fetchHotProduct, updateHotProductApi } from '../redux/actions/hotProductAction';
 
 
 const ListProductHot = () => {
     const navigation = useNavigation();
-    const dispatch=useDispatch();
-    const listHotProduct=useSelector(state=>state.hot.productHot);
+    const dispatch = useDispatch();
+    const listHotProduct = useSelector(state => state.hot.productHot);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchHotProduct());
         console.log(listHotProduct);
-    },[dispatch])
+    }, [dispatch])
+
+    const handlePress = (item) => {
+        const updateItem = { ...item, viewed: !item.viewed };
+        dispatch(updateHotProductApi(updateItem));
+        navigation.navigate('detail', { item });
+    }
 
 
     return (
@@ -27,7 +33,7 @@ const ListProductHot = () => {
                 renderItem={({ item }) => {
                     return (
                         <View>
-                            <TouchableOpacity style={styles.item} onPress={()=>{navigation.navigate('detail', {item})}}>
+                            <TouchableOpacity style={styles.item} onPress={() => handlePress(item)}>
                                 <Image style={styles.img} source={{ uri: item.imgProduct }} />
                                 <Text style={styles.text_name}>{item.nameProduct}</Text>
                                 <Text>{item.priceProduct} đ</Text>

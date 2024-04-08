@@ -3,14 +3,21 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavouriteProductApi, deleteFavouriteProductApi, updateFavouriteProductApi, fetchFavouriteProduct } from '../redux/actions/favouriteProductAction'
 import { FlatList } from 'react-native-gesture-handler'
+import { useTheme } from '../components/MyTheme'; // Import hook useTheme
+import { Colors } from '../constants'
+import { fetchComment } from '../redux/actions/commentAction'
 
 const FavouriteScreen = () => {
   const dispatch = useDispatch();
+  const { theme, toggleTheme } = useTheme();
   const listFavouriteProduct = useSelector(state => state.favourite.productFavourite);
+  const listComment=useSelector(item=>item.comment.comments);
 
   useEffect(() => {
     dispatch(fetchFavouriteProduct());
-    console.log(listFavouriteProduct);
+    dispatch(fetchComment());
+    console.log(listComment);
+
   }, [dispatch])
 
   const renderProductItem = ({ item }) => (
@@ -24,7 +31,7 @@ const FavouriteScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{ backgroundColor: theme === 'purple' ? Colors.blue : Colors.white }]}>
       <Text style={styles.title}>Danh sách sản phẩm yêu thích</Text>
       <FlatList
         data={listFavouriteProduct}
@@ -32,6 +39,7 @@ const FavouriteScreen = () => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.productList}
       />
+      <Text>fjse</Text>
     </View>
   )
 }

@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const api_url = "http://192.168.53.5:3000/newProducts";
+const api_url = "http://192.168.54.9:3000/newProducts";
 
 export const addNewProduct = createAction('product/addNew');
 export const updateNewProduct = createAction('product/updateNew');

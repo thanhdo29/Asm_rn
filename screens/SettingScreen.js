@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CustomEditText from '../components/CustomEditText';
-import { Colors,Fontsizes } from '../constants';
+import { Colors, Fontsizes } from '../constants';
+import { useTheme } from '../components/MyTheme'; // Import hook useTheme
 
 const SettingScreen = () => {
     const navigation = useNavigation();
+    const { theme, toggleTheme } = useTheme(); // Lấy giá trị theme và hàm toggleTheme từ hook useTheme
     const [modalVisible, setModalVisible] = useState(false);
 
     const doLogout = () => {
@@ -25,8 +27,9 @@ const SettingScreen = () => {
     const doChangePass = () => {
         setModalVisible(true)
     }
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme === 'purple' ? Colors.blue : Colors.white }]}>
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Thông tin cá nhân</Text>
                 <View style={styles.infoItem}>
@@ -44,11 +47,10 @@ const SettingScreen = () => {
             </View>
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Cài đặt riêng</Text>
-                <TouchableOpacity style={styles.settingItem} onPress={() => {
-
-                }}>
-                    <Text>Đổi chủ đề</Text>
+                <TouchableOpacity style={styles.settingItem} onPress={toggleTheme}>
+                <Text>Đổi chủ đề</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity style={styles.settingItem} onPress={() => { doLogout() }}>
                     <Text>Đăng xuất</Text>
                 </TouchableOpacity>
@@ -64,7 +66,7 @@ const SettingScreen = () => {
                     }}>
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={{fontSize:30, fontWeight:'bold', marginBottom:23}}>Đổi mật khẩu</Text>
+                            <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 23 }}>Đổi mật khẩu</Text>
                             <CustomEditText placeholder='Mật khẩu cũ' />
                             <CustomEditText placeholder='Mật khẩu mới' />
                             <CustomEditText placeholder='Nhập lại mật khẩu mới' />
@@ -132,13 +134,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 50,
         marginTop: 12
-    
-      },
-      text_btn: {
+
+    },
+    text_btn: {
         color: Colors.white,
         alignItems: 'center',
         fontSize: Fontsizes.fs_16
-      }
+    }
 });
 
 

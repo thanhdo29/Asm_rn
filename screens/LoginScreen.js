@@ -5,6 +5,8 @@ import CustomEditText from '../components/CustomEditText'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth'; // Import Firebase auth
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 
 const LoginScreen = () => {
   const navigation = useNavigation();

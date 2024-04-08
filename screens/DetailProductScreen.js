@@ -1,27 +1,44 @@
-import { Image, StyleSheet, Text, View, StatusBar, TouchableOpacity, FlatList, ScrollView } from 'react-native'
+import { Image, StyleSheet, Text, View, StatusBar, TouchableOpacity, FlatList, ScrollView, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavouriteProductApi } from '../redux/actions/favouriteProductAction';
+import { addFavouriteProductApi, fetchFavouriteProduct } from '../redux/actions/favouriteProductAction';
 
-const DetailProductScreen = ({route}) => {
+const DetailProductScreen = ({ route }) => {
 
   const { id, nameProduct, priceProduct, imgProduct, describeProduct, quantity, companyProduct } = route.params.item;
-  const listFavourite=useSelector(state=>state.favourite.productFavourite);
-  const dispatch=useDispatch();
+  const listFavourite = useSelector(state => state.favourite.productFavourite);
+  const dispatch = useDispatch();
+  const [isFavourite, setIsFavourite] = useState(false);
 
-  const doFavourite=()=>{{
-    dispatch(addFavouriteProductApi({
-      "id":id,
-      "nameProduct":nameProduct,
-      "imgProduct":imgProduct,
-      "describeProduct":describeProduct,
-      "quantity":quantity,
-      "companyProduct":companyProduct
-    }))
-  }}
 
-  
+  useEffect(() => {
+    dispatch(fetchFavouriteProduct());
+    const checkFavourite = listFavourite.some(item => item.idSp === id);
+    setIsFavourite(checkFavourite);
+    console.log(listFavourite);
+  }, [dispatch])
+
+  const doFavourite = () => {
+    const isCheckFavourite = listFavourite.some(item => item.idSp === id);
+
+    if (!isCheckFavourite) {
+      {
+        dispatch(addFavouriteProductApi({
+          "idSp": id,
+          "nameProduct": nameProduct,
+          "imgProduct": imgProduct,
+          "describeProduct": describeProduct,
+          "quantity": quantity,
+          "companyProduct": companyProduct
+        }))
+      }
+    }else{
+      Alert.alert("Thông báo", "Sản phẩm đã có trong danh sách yêu thích");
+    }
+  }
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -46,9 +63,9 @@ const DetailProductScreen = ({route}) => {
           <Text style={styles.text}>{companyProduct}</Text>
         </View>
 
-        
 
-       
+
+
 
         {/* <FlatList
           data={dataViewed}
