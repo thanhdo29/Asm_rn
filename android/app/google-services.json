@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "180741486135",
+    "project_id": "asmrn-d285f",
+    "storage_bucket": "asmrn-d285f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180741486135:android:9adfab9a612ca2e4a2f1b2",
+        "android_client_info": {
+          "package_name": "com.asm2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRrLI358oP6jZhRzJcRabr-xLqNZCDC3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
